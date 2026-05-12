@@ -1,24 +1,31 @@
-import os
-from dotenv import load_dotenv
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+import sys
+import ctypes
+from PySide6.QtWidgets import QApplication
+from spotify_client import SpotifyHandler
+from gui import SpotifyWindow
 
-success = load_dotenv()
+def main():
+    app = QApplication(sys.argv)
 
-print(f"--- Debug Infos ---")
-print(f"Arbeitsverzeichnis: {os.getcwd()}")
-print(f".env Datei gefunden & geladen: {success}")
+    app_id = 'piet.spoticlient.v1'
 
-meine_id = os.getenv("SPOTIPY_CLIENT_ID")
-mein_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
-print(f"Client ID: {meine_id}")
-print(f"Client Secret: {mein_secret}")
+    if sys.platform == "win32":
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
 
-try:
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope="user-read-currently-playing"))
+    app.setDesktopFileName("spoticlient")
+
+    try:
+        with open("style.qss", "r") as f:
+            app.setStyleSheet(f.read())
+    except FileNotFoundError:
+        print("Stylesheet nicht gefunden, nutze Standard-Look.")
+
+    spotify = SpotifyHandler()
     
-    user_info = sp.current_user()
-    print(f"Erfolgreich eingeloggt als: {user_info['display_name']}")
+    window = SpotifyWindow(spotify)
+    window.show()
     
-except Exception as e:
-    print(f"Fehler beim Login: {e}")
+    sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()

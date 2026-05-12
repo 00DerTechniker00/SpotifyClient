@@ -1,0 +1,87 @@
+/* Hauptfenster */
+QMainWindow {
+    background-color: #121212;
+}
+
+/* Texte */
+QLabel {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* Die Liste der Songs */
+QListWidget {
+    background-color: #181818;
+    border: 1px solid #282828;
+    border-radius: 8px;
+    color: #B3B3B3;
+    padding: 5px;
+}
+
+QListWidget::item {
+    padding: 10px;
+    border-bottom: 1px solid #282828;
+}
+
+QListWidget::item:selected {
+    background-color: #1DB954;
+    color: white;
+    border-radius: 4px;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #1DB954;
+    color: white;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #1ed760;
+}
+
+QPushButton:pressed {
+    background-color: #1aa34a;
+}
+
+QLabel#cover_label {
+    border: 30px solid #282828;
+    background-color: #181818; /* Platzhalterfarbe falls kein Bild da ist */
+}
+
+/* Die gesamte Scrollbar (Hintergrund-Schiene) */
+QScrollBar:vertical {
+    border: none;
+    background: #121212;
+    width: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+/* Der Griff (das Teil, das man bewegt) */
+QScrollBar::handle:vertical {
+    background: #3e3e3e;
+    min-height: 20px;
+    border-radius: 5px;
+}
+
+/* Hover-Effekt für den Griff */
+QScrollBar::handle:vertical:hover {
+    background: #1DB954; /* Spotify-Grün beim Drüberfahren */
+}
+
+/* Die Pfeil-Buttons oben und unten (hier deaktiviert für cleanen Look) */
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: none;
+    background: none;
+    height: 0px;
+}
+
+/* Versteckt den Bereich über/unter dem Griff */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
