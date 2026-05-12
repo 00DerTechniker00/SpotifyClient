@@ -1,0 +1,1 @@
+This is a little project of mine where i try to build my own Spotify Client for my Linux PC.
