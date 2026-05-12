@@ -1,16 +1,24 @@
+import os
+from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-# Deine Daten vom Spotify Developer Dashboard
-scope = "user-library-read user-modify-playback-state"
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id="DEINE_ID",
-    client_secret="DEIN_SECRET",
-    redirect_uri="http://localhost:8080/callback",
-    scope=scope
-))
+success = load_dotenv()
 
-# Test: Welcher Song läuft gerade?
-current = sp.current_playback()
-if current:
-    print(f"Gerade läuft: {current['item']['name']}")
+print(f"--- Debug Infos ---")
+print(f"Arbeitsverzeichnis: {os.getcwd()}")
+print(f".env Datei gefunden & geladen: {success}")
+
+meine_id = os.getenv("SPOTIPY_CLIENT_ID")
+mein_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+print(f"Client ID: {meine_id}")
+print(f"Client Secret: {mein_secret}")
+
+try:
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope="user-read-currently-playing"))
+    
+    user_info = sp.current_user()
+    print(f"Erfolgreich eingeloggt als: {user_info['display_name']}")
+    
+except Exception as e:
+    print(f"Fehler beim Login: {e}")
